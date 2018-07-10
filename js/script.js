@@ -190,4 +190,31 @@
 			myMap.setCenter(coords);
 		});
 	});
+	
+	function setAboutNav(e) {
+		$('.about-history__nav--item').eq(e).addClass('is-active').siblings().removeClass('is-active');
+	}
+	function aboutSliderInit() {
+		var start = 0;
+		$('.about-slider').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			start: start,
+			arrows: true,
+			dots: false,
+			infinite: false,
+			draggable: true
+		});
+		setAboutNav(start);
+	}
+	aboutSliderInit();
+	$('.about-slider').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+		setAboutNav(nextSlide);
+	});
+	$('.about-history__nav--item').on('click', function() {
+		var t = $(this).index();
+		setAboutNav(t);
+		$('.about-slider').slick('slickGoTo',t);
+	});
+	
 })(window);
